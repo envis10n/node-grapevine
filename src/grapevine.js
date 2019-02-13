@@ -36,10 +36,13 @@ class Grapevine extends EventEmitter {
                 let events = this.event_listeners.get(dobj.event);
                 for(let event of events){
                     if(dobj.status !== undefined){
-                        if(dobj.status == 'success') event.resolve(dobj.payload);
+                        if(dobj.status == 'success') event.resolve(dobj);
                         else event.reject(dobj.error);
+                    } else {
+                        event.resolve(dobj);
                     }
                 }
+                event_listeners.delete(dobj.event);
             });
             this.socket.send({
                 event: 'authenticate',
@@ -56,6 +59,11 @@ class Grapevine extends EventEmitter {
             this.emit('authenticated');
         })();
     }
+    /**
+     * 
+     * @param {String} event Name of the event to wait on.
+     * @return {Promise} A promise that resolves to the object sent from grapevine.
+     */
     wait(event){
         return new Promise((resolve, reject) => {
             let events = this.event_listeners.get(event) || [];
