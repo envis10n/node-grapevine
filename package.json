@@ -1,0 +1,13 @@
+{
+  "name": "node-grapevine",
+  "version": "0.0.1",
+  "description": "A node library for grapevine.haus, an inter-MUD communications platform.",
+  "main": "index.js",
+  "repository": "https://github.com/envis10n/node-grapevine.git",
+  "author": "envis10n",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "ws": "^6.1.3"
+  }
+}
